@@ -1,0 +1,14 @@
+﻿@using mini-ecommerce.Blazor.Models
+
+<tr>
+    <td>@Product.Name</td>
+    <td>@Product.Price</td>
+    <td>@Product.Quantity</td>
+</tr>
+
+@code{
+
+    [Parameter]
+    public ProductDto Product { get; set; } = default!;
+
+}
