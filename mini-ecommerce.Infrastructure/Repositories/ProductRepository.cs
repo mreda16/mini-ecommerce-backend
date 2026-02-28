@@ -44,4 +44,17 @@ public class ProductRepository : IProductRepository
 
         return new PagedResult<ProductDto>(items, total, pageNumber, pageSize);
     }
+    
+    public async Task<ProductDto?> GetProductDetailsByIdAsync(Guid id)
+    {
+        return await _context.Products
+            .AsNoTracking()
+            .Where(x => x.Id == id)
+            .Select(x => new ProductDto(
+                x.Id,
+                x.Name,
+                x.Price,
+                x.Quantity))
+            .FirstOrDefaultAsync();
+    }
 }

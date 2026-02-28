@@ -7,6 +7,7 @@ public interface IProductRepository
 {
     Task AddAsync(Product product);
     Task<Product?> GetByIdAsync(Guid id);
+    Task<ProductDto?> GetProductDetailsByIdAsync(Guid id);
 
     Task<PagedResult<ProductDto>> GetPagedAsync(int pageNumber, int pageSize);
 }

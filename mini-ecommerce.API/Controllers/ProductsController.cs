@@ -27,9 +27,20 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get(int page = 1, int size = 10)
+    public async Task<IActionResult> GetProducts(int page = 1, int size = 10)
     {
         var result = await _service.GetPagedAsync(page, size);
         return Ok(result);
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+        var result = await _service.GetProductDetailsByIdAsync(id);
+
+        if (!result.IsSuccess)
+            return NotFound(result.Error);
+
+        return Ok(result.Value);
     }
 }

@@ -9,6 +9,8 @@ builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
+builder.Services.AddHealthChecks(); 
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -18,10 +20,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.MapControllers();
-
-builder.Services.AddHealthChecks();
 app.MapHealthChecks("/health");
 
 app.Run();

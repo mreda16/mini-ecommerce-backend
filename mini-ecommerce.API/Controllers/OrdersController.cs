@@ -29,7 +29,7 @@ public class OrdersController : ControllerBase
 
     // US-05 Get Order Details
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> Get(Guid id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var result = await _service.GetByIdAsync(id);
 

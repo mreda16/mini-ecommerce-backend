@@ -29,4 +29,15 @@ public class ProductService
 
     public Task<PagedResult<ProductDto>> GetPagedAsync(int page, int size)
         => _repository.GetPagedAsync(page, size);
+    
+
+    public async Task<Result<ProductDto>> GetProductDetailsByIdAsync(Guid id)
+    {
+        var product = await _repository.GetProductDetailsByIdAsync(id);
+
+        if (product is null)
+            return Result<ProductDto>.Failure("Product not found");
+
+        return Result<ProductDto>.Success(product);
+    }
 }
