@@ -3,39 +3,30 @@ using mini_ecommerce.Domain.Common;
 using mini_ecommerce.Application.DTOs;
 using mini_ecommerce.Application.Interfaces.Services;
 using mini_ecommerce.Domain.Entities;
+using mini_ecommerce.Application.Common;
 
 namespace mini_ecommerce.Application.Services;
 
-public class ProductService: IProductService
+public class ProductService
 {
-    private readonly IProductRepository _repo;
+    private readonly IProductRepository _repository;
 
-    public ProductService(IProductRepository repo)
+    public ProductService(IProductRepository repository)
     {
-        _repo = repo;
+        _repository = repository;
     }
 
-    public async Task<Result<ProductDto>> Create(CreateProductDto dto)
+    public async Task<Result<Guid>> CreateAsync(CreateProductDTO request)
     {
-        var productResult = Product.Create(dto.Name, dto.Price, dto.Quantity);
+        var result = Product.Create(request.Name, request.Price, request.Quantity);
 
-        if (!productResult.IsSuccess)
-            return Result<ProductDto>.Failure(productResult.Error);
+        if (!result.IsSuccess)
+            return Result<Guid>.Failure(result.Error);
 
-        await _repo.Add(productResult.Value);
-        await _repo.SaveChanges();
-
-        var p = productResult.Value;
-
-        return Result<ProductDto>.Success(
-            new ProductDto(p.Id, p.Name, p.Price, p.Quantity));
+        await _repository.AddAsync(result.Value);
+        return Result<Guid>.Success(result.Value.Id);
     }
 
-    public async Task<List<ProductDto>> List(int page, int pageSize)
-    {
-        var products = await _repo.GetAll(page, pageSize);
-
-        return products.Select(x =>
-            new ProductDto(x.Id, x.Name, x.Price, x.Quantity)).ToList();
-    }
+    public Task<PagedResult<ProductDto>> GetPagedAsync(int page, int size)
+        => _repository.GetPagedAsync(page, size);
 }

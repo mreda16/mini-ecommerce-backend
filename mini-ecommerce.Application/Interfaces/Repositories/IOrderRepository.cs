@@ -3,7 +3,7 @@ namespace mini_ecommerce.Application.Interfaces.Repositories;
 
 public interface IOrderRepository
 {
-    Task Add(Order order);
-    Task<Order?> Get(Guid id);
-    Task SaveChanges();
+    Task AddAsync(Order order);
+
+    Task<Order?> GetByIdAsync(Guid id);
 }

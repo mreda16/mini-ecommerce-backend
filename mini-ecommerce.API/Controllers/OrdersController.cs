@@ -15,10 +15,11 @@ public class OrdersController : ControllerBase
         _service = service;
     }
 
+    // US-03 Create Order
     [HttpPost]
-    public async Task<IActionResult> Create(CreateOrderDto dto)
+    public async Task<IActionResult> Create(CreateOrderDTO request)
     {
-        var result = await _service.Create(dto);
+        var result = await _service.CreateAsync(request);
 
         if (!result.IsSuccess)
             return BadRequest(result.Error);
@@ -26,22 +27,15 @@ public class OrdersController : ControllerBase
         return Ok(result.Value);
     }
 
-    [HttpGet("{id}")]
+    // US-05 Get Order Details
+    [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get(Guid id)
     {
-        var order = await _service.Get(id);
+        var result = await _service.GetByIdAsync(id);
 
-        if (order == null)
-            return NotFound();
+        if (!result.IsSuccess)
+            return NotFound(result.Error);
 
-        return Ok(new
-        {
-            order.Id,
-            order.CustomerName,
-            Items = order.Items,
-            Subtotal = order.Subtotal(),
-            Discount = order.Discount(),
-            Total = order.Total()
-        });
+        return Ok(result.Value);
     }
 }

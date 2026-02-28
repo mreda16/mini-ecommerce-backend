@@ -16,9 +16,9 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateProductDto dto)
+    public async Task<IActionResult> Create(CreateProductDTO request)
     {
-        var result = await _service.Create(dto);
+        var result = await _service.CreateAsync(request);
 
         if (!result.IsSuccess)
             return BadRequest(result.Error);
@@ -27,8 +27,9 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> List(int page = 1, int size = 10)
+    public async Task<IActionResult> Get(int page = 1, int size = 10)
     {
-        return Ok(await _service.List(page, size));
+        var result = await _service.GetPagedAsync(page, size);
+        return Ok(result);
     }
 }

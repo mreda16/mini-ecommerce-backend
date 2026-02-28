@@ -1,45 +1,52 @@
 using mini_ecommerce.Domain.Common;
 namespace mini_ecommerce.Domain.Entities;
+// using mini_ecommerce.Domain.ValueObjects;
 
 public class Order
 {
-    public Guid Id { get; private set; } = Guid.NewGuid();
+    public Guid Id { get; private set; }
     public string CustomerName { get; private set; }
     public List<OrderItem> Items { get; private set; } = new();
 
+    public decimal Discount { get; private set; }
+    public decimal Total { get; private set; }
+
     private Order() { }
 
-    public static Result<Order> Create(string customerName, List<OrderItem> items)
+    private Order(string customerName)
+    {
+        Id = Guid.NewGuid();
+        CustomerName = customerName;
+    }
+
+    public static Result<Order> Create(string customerName)
     {
         if (string.IsNullOrWhiteSpace(customerName))
-            return Result<Order>.Failure("Customer name required");
+            return Result<Order>.Failure("Customer name is required");
 
-        if (items.Count == 0)
-            return Result<Order>.Failure("Order must contain items");
-
-        return Result<Order>.Success(new Order
-        {
-            CustomerName = customerName,
-            Items = items
-        });
+        return Result<Order>.Success(new Order(customerName));
     }
 
-    public decimal Subtotal()
-        => Items.Sum(x => x.Total());
-
-    public decimal Discount()
+    public Result<bool> AddItem(Product product, int quantity)
     {
-        var itemCount = Items.Sum(x => x.Quantity);
+        var stockResult = product.ReduceStock(quantity);
+        if (!stockResult.IsSuccess)
+            return Result<bool>.Failure(stockResult.Error);
 
-        if (itemCount >= 5)
-            return Subtotal() * 0.10m;
-
-        if (itemCount >= 2)
-            return Subtotal() * 0.05m;
-
-        return 0;
+        Items.Add(new OrderItem(product.Id, product.Name, product.Price, quantity));
+        return Result<bool>.Success(true);
     }
 
-    public decimal Total()
-        => Subtotal() - Discount();
+    public void CalculateTotals()
+    {
+        var subtotal = Items.Sum(x => x.Price * x.Quantity);
+        var totalItems = Items.Sum(x => x.Quantity);
+
+        if (totalItems >= 2 && totalItems <= 4)
+            Discount = subtotal * 0.05m;
+        else if (totalItems >= 5)
+            Discount = subtotal * 0.10m;
+
+        Total = subtotal - Discount;
+    }
 }

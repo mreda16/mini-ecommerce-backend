@@ -1,3 +1,3 @@
 namespace mini_ecommerce.Application.DTOs;
 
-public record CreateOrderItemDto(Guid ProductId, int Quantity);
+public record CreateOrderItemDTO(Guid ProductId, int Quantity);
