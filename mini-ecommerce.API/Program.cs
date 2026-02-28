@@ -21,4 +21,7 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
+builder.Services.AddHealthChecks();
+app.MapHealthChecks("/health");
+
 app.Run();
