@@ -2,7 +2,8 @@
 
 // product-form.component.ts
 import { Component, Output, EventEmitter } from '@angular/core';
-import { ProductService } from '../../../services/product.service';
+import { ProductService } from '../../../services/product';
+import { ProductDto } from '../../../models/ecommerce.models';
 
 @Component({
   selector: 'app-product-form',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../../services/product.service';
-import { ProductDto } from '../../../models/models';
-// product-list.component.ts
+import { ProductService } from '../../../services/product';
+import { ProductDto } from '../../../models/ecommerce.models';
+
 @Component({
   selector: 'app-product-list',
   template: `

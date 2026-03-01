@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderDetailsDto } from '../models/models';
-import { OrderService } from '../../core/services/OrdersService';
+import { OrderDetailsDto } from '../../../models/ecommerce.models';
+import { OrderService } from '../../../services/order';
 import { ActivatedRoute } from '@angular/router';
 // order-details.component.ts
 @Component({
