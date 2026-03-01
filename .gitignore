@@ -6,6 +6,5 @@ riderModule.iml
 .idea/
 *.iml
 .vscode/
-mini-ecommerce.API/appsettings.Development.json
-mini_ecommerce.API/appsettings.Development.json
+mini-ecommerce.API/appsettings.json
 mini_ecommerce.angular-client/node-modules/

@@ -17,6 +17,6 @@ export class OrderDetailsPage implements OnInit {
   constructor(private service: OrderService, private route: ActivatedRoute) {}
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
-    this.service.getOrderById(id).subscribe(data => this.order = data);
+    this.service.getOrderById(id).subscribe((data: OrderDetailsDto) => this.order = data);
   }
 }
