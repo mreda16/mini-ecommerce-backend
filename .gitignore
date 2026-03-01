@@ -8,4 +8,4 @@ riderModule.iml
 .vscode/
 mini-ecommerce.API/appsettings.json
 mini_ecommerce.angular-client/node-modules/
-mini-ecommerce.Infrastructure/Migrations/
+mini_ecommerce.Infrastructure/Migrations/
