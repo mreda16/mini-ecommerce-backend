@@ -1,19 +1,15 @@
-Here is your `README.md` content.
-
----
-
 # mini-ecommerce
 
 A simplified e-commerce backend built with ASP.NET Core Web API, Entity Framework Core, and Blazor.
 
 This project follows Clean Architecture principles and demonstrates:
 
-* Domain-driven design fundamentals
-* Result pattern for domain validation
-* DTO projection directly from the database
+* Domain-driven design 
+* Result pattern for domain validation returns
+* DTO projection directly from the database (no in-memory transformation)
 * Pagination support with PagedResult
 * Discount calculation logic
-* Blazor integration for product listing
+* Angular integration
 
 ---
 
@@ -27,7 +23,7 @@ mini-ecommerce
  ├── mini-ecommerce.Application
  ├── mini-ecommerce.Infrastructure
  ├── mini-ecommerce.API
- └── mini-ecommerce.Blazor
+ └── angular-client
 ```
 
 ### Domain
@@ -94,13 +90,14 @@ Controllers are thin and delegate to services.
 
 ---
 
-### Blazor
+### Angular
 
-Contains a product listing page:
+Contains UI Pages:
 
 * Calls the API
 * Integrates pagination UI
 * Displays paged products
+* note: i avoided feature-based arch to make it simple
 
 ---
 
@@ -205,4 +202,4 @@ Business rule violations return failures instead of throwing exceptions.
 
 ---
 
-This project demonstrates clean layering (did not make it in Modular Monolith to keep it simple), correct API design, and enforceable business rules in a simplified e-commerce context.
+This project demonstrates clean layering (did not make it in self-contained modules following Modular Monolith to keep it simple), correct API design, and enforceable business rules in a simplified e-commerce context.
