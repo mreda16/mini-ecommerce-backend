@@ -183,9 +183,8 @@ Business rule violations return failures instead of throwing exceptions.
 ## Design Decisions
 
 * Clean Architecture with clear dependency flow.
-* No CQRS to keep complexity minimal.
+* No CQRS or Mediator to keep complexity minimal.
 * DTO projection performed inside repositories.
-* No AutoMapper used.
 * Controllers contain no business logic.
 * Domain does not depend on EF Core.
 * Pagination implemented using PagedResult<T>.
@@ -195,7 +194,7 @@ Business rule violations return failures instead of throwing exceptions.
 ## Running the Solution
 
 1. Update connection string in `appsettings.json`.
-2. Create database initial migrations (i moved from Omarchy Linux to Fedora lately and found migration don't apply. will be handled after i wake up :) )
+2. add and run migration
 3. Start the API project.
 4. run the Angular project.
 5. Navigate to the Products page.
