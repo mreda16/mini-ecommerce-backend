@@ -195,9 +195,9 @@ Business rule violations return failures instead of throwing exceptions.
 ## Running the Solution
 
 1. Update connection string in `appsettings.json`.
-2. Run database migrations.
+2. Create database initial migrations (i moved from Omarchy Linux to Fedora lately and found migration didn't apply even after tries. will be handled after i wake up :) )
 3. Start the API project.
-4. Start the Blazor project.
+4. run the Angular project.
 5. Navigate to the Products page.
 
 ---
