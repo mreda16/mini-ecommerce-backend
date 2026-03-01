@@ -4,7 +4,7 @@ A simplified e-commerce backend built with ASP.NET Core Web API, Entity Framewor
 
 This project follows Clean Architecture principles and demonstrates:
 
-* Domain-driven design 
+* Domain-driven design (rich domain models instead of anemic models, value objects can be used in a larger scope)
 * Result pattern for domain validation returns
 * DTO projection directly from the database (no in-memory transformation)
 * Pagination support with PagedResult
@@ -195,7 +195,7 @@ Business rule violations return failures instead of throwing exceptions.
 ## Running the Solution
 
 1. Update connection string in `appsettings.json`.
-2. Create database initial migrations (i moved from Omarchy Linux to Fedora lately and found migration didn't apply even after tries. will be handled after i wake up :) )
+2. Create database initial migrations (i moved from Omarchy Linux to Fedora lately and found migration don't apply. will be handled after i wake up :) )
 3. Start the API project.
 4. run the Angular project.
 5. Navigate to the Products page.
